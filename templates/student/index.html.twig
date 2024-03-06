@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace étudiant{% endblock %}
+
+{% block body %}
+<div class="container mt-3">
+    {% if not students.items is same as ([]) %}
+        <h2 class="mb-2">Liste des étudiants:</h2>
+      <div class="count">
+      <p>Nouveau étudiant: <a class="" href="{{ path('student.new') }}">Ajouter </a>
+      </p>  
+      <p>Ilya {{students.getTotalItemCount }} étudiants au total. </p>  
+
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Firstname</th>
+            <th scope="col">Lastname</th>
+            <th scope="col">Birthday</th>
+            <th scope="col">email</th>
+            <th scope="col">Phonenumber</th>
+            <th scope="col">Date d'enregistrement</th>
+          </tr>
+          
+        </thead>
+        <tbody>
+        {% for student in students %}
+          <tr>
+            <th scope="row">{{student.id}}</th>
+            <td>{{student.firstname}}</td>
+            <td>{{student.lastname}}</td>
+            <td>{{student.birthday|date("d/m/Y")}}</td>
+            <td>{{student.email}}</td>
+            <td>{{student.phonenumber}}</td>
+            <td>{{student.createdAt|date("d/m/Y H:i:s")}}</td>
+          </tr>
+        {% endfor %} 
+        </tbody>
+      </table>
+      <div class="navigation d-flex justify-content-center">
+        {{ knp_pagination_render(students) }}
+      </div>
+    {% else %}
+      <p>La liste est vide</p>
+    {% endif %}
+
+
+</div>
+{% endblock %}
